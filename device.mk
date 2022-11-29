@@ -16,16 +16,16 @@ AB_OTA_POSTINSTALL_CONFIG += \
 # Boot control HAL
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-impl.recovery \
     android.hardware.boot@1.0-service
 
 PRODUCT_PACKAGES += \
-    bootctrl.mt6877
+    android.hardware.fastboot@1.0-impl-mock \
+    fastbootd \
 
-PRODUCT_STATIC_BOOT_CONTROL_HAL := \
-    bootctrl.mt6877 \
-    libgptutils \
-    libz \
-    libcutils
+PRODUCT_PACKAGES += \
+    bootctrl.mt6877.recovery \
+    bootctrl.mt6877
 
 PRODUCT_PACKAGES += \
     otapreopt_script \
@@ -33,3 +33,16 @@ PRODUCT_PACKAGES += \
     update_engine \
     update_verifier \
     update_engine_sideload
+
+# Blacklist
+PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
+    ro.bootimage.build.date.utc \
+    ro.build.date.utc
+
+# OEM otacerts
+PRODUCT_EXTRA_RECOVERY_KEYS += \
+    $(LOCAL_PATH)/security/otacert
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH)
