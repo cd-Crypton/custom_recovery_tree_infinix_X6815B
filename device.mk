@@ -15,15 +15,14 @@ AB_OTA_POSTINSTALL_CONFIG += \
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.0-impl \
-    android.hardware.boot@1.0-impl.recovery \
-    android.hardware.boot@1.0-service
+    android.hardware.boot@1.0-impl-1.1-mtkimpl.recovery \
+    android.hardware.boot@1.0-impl-1.1-mtkimpl
 
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
     fastbootd \
-
-PRODUCT_PACKAGES += \
+ 
+#PRODUCT_PACKAGES += \
     bootctrl.mt6877.recovery \
     bootctrl.mt6877
 
@@ -41,7 +40,7 @@ PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
 
 # OEM otacerts
 PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(LOCAL_PATH)/security/otacert
+    $(LOCAL_PATH)/security/releasekey
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
