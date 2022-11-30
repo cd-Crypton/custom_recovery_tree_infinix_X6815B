@@ -11,6 +11,7 @@ on fs && property:ro.debuggable=0
     start adbd
 
 on post-fs
+    start mtk.plpath.utils.link
     # Support A/B feature for EMMC and UFS boot region
     wait /dev/block/mmcblk0boot0 2
     symlink /dev/block/sda /dev/block/mmcblk0boot0
@@ -45,4 +46,20 @@ service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymas
     user root
     group root
     disabled
+    seclabel u:r:recovery:s0
+
+service mtk.plpath.utils.link /system/bin/mtk_plpath_utils
+    class main
+    user root
+    group root system
+    oneshot
+    disabled
+    seclabel u:r:recovery:s0
+
+service vendor.boot-hal-1-1 /vendor/bin/hw/android.hardware.boot@1.1-service
+    interface android.hardware.boot@1.0::IBootControl default
+    interface android.hardware.boot@1.1::IBootControl default
+    class early_hal
+    user root
+    group root
     seclabel u:r:recovery:s0
