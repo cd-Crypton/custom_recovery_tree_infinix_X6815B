@@ -6,24 +6,36 @@
 #
 
 LOCAL_PATH := device/infinix/X6815B
+
 # A/B
+AB_OTA_UPDATER := true
+
+# A/B OTA Partitions
+AB_OTA_PARTITIONS += \
+    system \
+    system_ext \
+    vendor \
+    product \
+    boot \
+    vbmeta_vendor \
+    vbmeta_system
+
+# A/B Post-install Config - System
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
 
-# Boot control HAL
-#PRODUCT_PACKAGES += \
-    android.hardware.boot@1.0-impl-1.1-mtkimpl.recovery \
-    android.hardware.boot@1.0-impl-1.1-mtkimpl
+# A/B Post-install Config - Vendor
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_vendor=true \
+    POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
+    FILESYSTEM_TYPE_vendor=ext4 \
+    POSTINSTALL_OPTIONAL_vendor=true
 
 PRODUCT_PACKAGES += \
     fastbootd \
- 
-#PRODUCT_PACKAGES += \
-    bootctrl.mt6877.recovery \
-    bootctrl.mt6877
 
 PRODUCT_PACKAGES += \
     otapreopt_script \
@@ -31,6 +43,16 @@ PRODUCT_PACKAGES += \
     update_engine \
     update_verifier \
     update_engine_sideload
+
+# f2fs utilities
+PRODUCT_PACKAGES += \
+    sg_write_buffer \
+    f2fs_io \
+    check_f2fs
+
+# Userdata checkpoint
+PRODUCT_PACKAGES += \
+    checkpoint_gc
 
 # Blacklist
 PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
