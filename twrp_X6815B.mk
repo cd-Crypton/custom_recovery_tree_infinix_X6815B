@@ -18,6 +18,9 @@ $(call inherit-product, device/infinix/X6815B/device.mk)
 # Installs gsi keys into ramdisk, to boot a GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
+# Virtual A/B
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+
 PRODUCT_RELEASE_NAME:= Infinix-X6815B
 PRODUCT_DEVICE := X6815B
 PRODUCT_NAME := twrp_X6815B
